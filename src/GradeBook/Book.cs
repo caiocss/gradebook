@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GradeBook
 {
-  class Book
+  public class Book
   {
     private List<double> Grades { get; set; }
     private string Name { get; set; }
@@ -19,29 +19,23 @@ namespace GradeBook
       this.Grades.Add(grade);
     }
 
-    public void ShowStatistics()
+    public Statistics GetStatistics()
     {
-      if (this.Grades.Count > 0)
-      {
-        double result = 0;
-        double highGrade = double.MinValue;
-        double lowGrade = double.MaxValue;
-        foreach (double number in this.Grades)
-        {
-          highGrade = Math.Max(number, highGrade);
-          lowGrade = Math.Min(number, lowGrade);
-          result += number;
-        }
-        result = result / this.Grades.Count;
 
-        Console.WriteLine($"The average result is: {result:N1}");
-        Console.WriteLine($"The lowest result is: {lowGrade}");
-        Console.WriteLine($"The highest result is: {highGrade}");
-      }
-      else
+      var result = new Statistics();
+      result.High = double.MinValue;
+      result.Low = double.MaxValue;
+
+      foreach (double grade in this.Grades)
       {
-        Console.WriteLine($"Don't have any grades in {this.Name}");
+        result.High = Math.Max(grade, result.High);
+        result.Low = Math.Min(grade, result.Low);
+        result.Average += grade;
       }
+
+      result.Average /= this.Grades.Count;
+
+      return result;
     }
   }
 }
