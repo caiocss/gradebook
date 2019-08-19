@@ -7,5 +7,6 @@ namespace GradeBook
     public double High { get; set; }
     public double Low { get; set; }
     public double Average { get; set; }
+    public char Letter { get; set; }
   }
 }
